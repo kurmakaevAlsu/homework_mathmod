@@ -1,0 +1,3 @@
+C:/Users/Alsu/CLionProjects/distance_task/cmake-build-debug/CMakeFiles/distance_task.dir
+C:/Users/Alsu/CLionProjects/distance_task/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Alsu/CLionProjects/distance_task/cmake-build-debug/CMakeFiles/rebuild_cache.dir
