@@ -120,9 +120,6 @@ int main(int argc, char** argv)
 
     int result = 0;
 
-    int i = 0;
-    string line;
-
     vector<double> X;
     vector<double> H;
 
