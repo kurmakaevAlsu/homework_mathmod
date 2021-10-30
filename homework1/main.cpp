@@ -14,7 +14,7 @@ double distance(double x, double y, double A, double a) {
 
 
 int main() {
-    std::ifstream file("C:\\Users\\Alsu\\CLionProjects\\distance_task\\input.txt");
+    std::ifstream file("in.txt");
     double x0, y0, x_l, y_l, x_r, y_r, A, a, d_l = 0, d_r = 0;
     x_l = x_r = y_l = y_r = NAN;
     file >> x0 >> y0;
