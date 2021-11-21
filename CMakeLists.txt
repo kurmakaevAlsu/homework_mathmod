@@ -3,4 +3,5 @@ project(distance_task)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(distance_task main.cpp)
+add_subdirectory(homework1)
+add_subdirectory(homework2)
