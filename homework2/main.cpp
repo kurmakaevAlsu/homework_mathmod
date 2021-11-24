@@ -48,11 +48,12 @@ int main(int argc, char** argv)
     int ans = 0;
 
 
-
     while (cin >> xi >> hi) {
         xis.push_back(xi);
         his.push_back(hi);
     }
+
+
 
     while (x > xis[ans]) {
         ans++;
@@ -60,15 +61,18 @@ int main(int argc, char** argv)
 
 
     while (true) {
+
         int dir = sgn(vx);
 
         int next = (dir > 0) ? ans : ans - 1;
+
 
 
         if (next < 0 || next >= xis.size()) {
             cout << ans;
             return 0;
         }
+
 
 
 
@@ -79,23 +83,22 @@ int main(int argc, char** argv)
             std::cout << ans;
             return 0;
         }
-        else if (y >= his[next]) {
+        else if (y > his[next]) {
 
             x = xis[next];
 
             ans += dir;
         }
-        else if (y < his[next]) {
+        else if (y <= his[next]) {
 
             vx = -vx;
             x = xis[next];
 
         }
-
         vy = vy - g * dt;
         t += dt;
+
     }
     return 0;
 }
-
 
