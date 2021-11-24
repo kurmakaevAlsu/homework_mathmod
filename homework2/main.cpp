@@ -3,10 +3,10 @@
 #include <vector>
 #include <cmath>
 #include <string>
+
 using namespace std;
 
-
-template <typename T> 
+template <typename T>
 int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
@@ -47,52 +47,57 @@ int main(int argc, char** argv)
     double y = h0, t = 0, x = 0.0, vx = vx0, vy = vy0;
     int ans = 0;
 
-   
+
+    xis.push_back(0.0);
+    his.push_back(-1.);
+
+
     while (cin >> xi >> hi) {
         xis.push_back(xi);
-        his.push_back(hi);       
+        his.push_back(hi);
     }
 
-    while (x > xis[ans]) {
-        ans++;
-    }
+    xis.push_back(xis.back()*2+10.0);
+    his.push_back(-1.);
 
-    
     while (true) {
         int dir = sgn(vx);
-        
-        int next = (dir > 0) ? ans : ans - 1;
-        
-        
-        if (next < 0 || next >= xis.size()) {
-            cout << ans;
+        int next = (dir > 0) ? ans + dir : ans;
+
+        if (his[next] < 0 ) {
+            std::cout << ans;
             return 0;
         }
 
 
-        
+        if (ans == 0 && dir < 0) {
+            std::cout << 0;
+            return 0;
+        }
+
         double dt = (xis[next] - x) / vx;
         y = y + vy * dt - g * dt * dt / 2;
 
         if (y <= 0.0) {
             std::cout << ans;
             return 0;
-        } 
+        }
         else if (y > his[next]) {
-          
-            x = xis[next];            
-            
-            ans += dir;
-        } 
-        else if (y <= his[next]) {
-           
-            vx = -vx;  
+
             x = xis[next];
-            
+
+            ans += dir;
+        }
+        else if (y <= his[next]) {
+
+            vx = -vx;
+            x = xis[next];
+
         }
         vy = vy - g * dt;
         t += dt;
 
-    }    
+    }
     return 0;
 }
+
