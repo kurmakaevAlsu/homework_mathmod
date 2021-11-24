@@ -3,29 +3,46 @@
 #include <vector>
 #include <cmath>
 #include <string>
+
 using namespace std;
+
 template <typename T>
 int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
+
+
 const double g = 9.81;
+
+
+
 int main(int argc, char** argv)
 {
+
     string input;
     try {
+
+
         if (argc == 2)
         {
+
             input = argv[1];
         }
         else {
+
             throw invalid_argument("wrong number of arguments");
+
         }
     }
     catch (invalid_argument e) {
+
         std::cout << e.what() << endl;
         return 0;
     }
+
      ifstream cin(input);
+
+
     double h0;
     cin >> h0;
     double vx0, vy0;
@@ -33,12 +50,9 @@ int main(int argc, char** argv)
     double xi, hi;
     vector<double> xis;
     vector<double> his;
+
     double y = h0, t = 0, x = 0.0, vx = vx0, vy = vy0;
     int ans = 0;
-
-
-    xis.push_back(0.0);
-    his.push_back(-1.);
 
 
     while (cin >> xi >> hi) {
@@ -46,26 +60,20 @@ int main(int argc, char** argv)
         his.push_back(hi);
     }
 
-    xis.push_back(xis.back()*2+10.0);
-    his.push_back(-1.);
+
     while (x > xis[ans]) {
         ans++;
     }
 
 
     while (true) {
-        int dir = sgn(vx);
-        int next = (dir > 0) ? ans + dir : ans;
 
-        if (his[next] < 0 ) {
-            std::cout << ans;
-            return 0;
-        }
+        int dir = sgn(vx);
+
         int next = (dir > 0) ? ans : ans - 1;
 
 
-        if (ans == 0 && dir < 0) {
-            std::cout << 0;
+
         if (next < 0 || next >= xis.size()) {
             cout << ans;
             return 0;
@@ -80,24 +88,22 @@ int main(int argc, char** argv)
             std::cout << ans;
             return 0;
         }
-        else if (y > his[next]) {
         else if (y >= his[next]) {
 
             x = xis[next];
 
             ans += dir;
         }
-        else if (y <= his[next]) {
         else if (y < his[next]) {
 
             vx = -vx;
             x = xis[next];
 
         }
-
         vy = vy - g * dt;
         t += dt;
 
     }
     return 0;
 }
+
