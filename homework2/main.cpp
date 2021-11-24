@@ -11,30 +11,37 @@ int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
+
 const double g = 9.81;
 
 
 
 int main(int argc, char** argv)
 {
+
     string input;
     try {
 
 
         if (argc == 2)
         {
+
             input = argv[1];
         }
         else {
+
             throw invalid_argument("wrong number of arguments");
+
         }
     }
     catch (invalid_argument e) {
+
         std::cout << e.what() << endl;
         return 0;
     }
 
      ifstream cin(input);
+
 
     double h0;
     cin >> h0;
@@ -52,7 +59,6 @@ int main(int argc, char** argv)
         xis.push_back(xi);
         his.push_back(hi);
     }
-
 
 
     while (x > xis[ans]) {
@@ -75,7 +81,6 @@ int main(int argc, char** argv)
 
 
 
-
         double dt = (xis[next] - x) / vx;
         y = y + vy * dt - g * dt * dt / 2;
 
@@ -83,13 +88,13 @@ int main(int argc, char** argv)
             std::cout << ans;
             return 0;
         }
-        else if (y > his[next]) {
+        else if (y >= his[next]) {
 
             x = xis[next];
 
             ans += dir;
         }
-        else if (y <= his[next]) {
+        else if (y < his[next]) {
 
             vx = -vx;
             x = xis[next];
@@ -101,4 +106,5 @@ int main(int argc, char** argv)
     }
     return 0;
 }
+
 
