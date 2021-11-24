@@ -94,7 +94,6 @@ int main(int argc, char** argv)
 
         vy = vy - g * dt;
         t += dt;
-
     }
     return 0;
 }
