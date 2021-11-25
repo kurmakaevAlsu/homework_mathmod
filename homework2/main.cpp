@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// функция определения знака числа
 template <typename T> 
 int sgn(T val) {
     return (T(0) < val) - (val < T(0));
