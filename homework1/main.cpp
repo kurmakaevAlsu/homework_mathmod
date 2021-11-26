@@ -46,12 +46,12 @@ int main() {
 	for (int i = 0; i < points.size(); i++) {
 		double dist = distance(start, vec, points[i]);
 
-		if (min > dist) {
+		if (min >= dist) {
 			min = dist;
 			left = points[i];
 		}
 
-		if (max < dist) {
+		if (max <= dist) {
 			max = dist;
 			right = points[i];
 		}
