@@ -1,50 +1,65 @@
 #include <iostream>
 #include <fstream>
-#include <math.h>
+#include <cmath>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Point {
+	double x = 0, y = 0;
+};
 
 
-bool is_left(double x, double y, double A) {
-    return isnan(A) ? x < 0 : A * x - y < 0;
+double distance(const Point& point1, const Point& point2, const Point& obj) {
+
+	double result;
+	double dy = point2.y - point1.y;
+	double dx = point2.x - point1.x;
+
+	if (abs(dy) < 0.00000001 && abs(dx) < 0.00000001)
+		return 0;
+	result = (dy * obj.x - dx * obj.y + point2.x * point1.y - point2.y * point1.x);
+	result /= sqrt(dx * dx + dy * dy);
+
+	return result;
 }
-
-double distance(double x, double y, double A, double a) {
-
-    return isnan(A) ? abs(x) : abs(A * x - y) / a;
-}
-
 
 int main() {
-    std::ifstream file("in.txt");
-    double x0, y0, x_l, y_l, x_r, y_r, A, a, d_l = 0, d_r = 0;
-    x_l = x_r = y_l = y_r = NAN;
-    file >> x0 >> y0;
+	vector<Point> points;
+	Point start{ 0, 0 };
+	Point vec;
+	string input = "in.txt";
+	ifstream cin(input);
 
-    A = x0 == 0 ? NAN : y0 / x0;
-    a = sqrt(pow(A, 2) + 1);
+	cin >> vec.x >> vec.y;
 
-    double x, y, d;
-    while (file >> x >> y) {
-        d = distance(x, y, A, a);
+	while (!cin.eof()) {
+		Point cur;
+		cin >> cur.x >> cur.y;
+		points.push_back(cur);
+	}
 
-        if (is_left(x, y, A)) {
-            if (d > d_l) {
-                d_l = d;
-                x_l = x;
-                y_l = y;
-            }
-        } else {
-            if (d > d_r) {
-                d_r = d;
-                x_r = x;
-                y_r = y;
-            }
-        };
+	Point left, right;
+	double min = 0.0, max = 0.0;
 
-    }
+	for (int i = 0; i < points.size(); i++) {
+		double dist = distance(start, vec, points[i]);
+
+		if (min > dist) {
+			min = dist;
+			left = points[i];
+		}
+
+		if (max < dist) {
+			max = dist;
+			right = points[i];
+		}
+	}
+
+	cout << "Leftmost: " << left.x << " " << left.y << endl;
+	cout << "Rightmost: " << right.x << " " << right.y << endl;
 
 
-    std::cout << "Leftmost: " << x_l << " " << y_l << '\n';
-    std::cout << "Rightmost: " << x_r << " " << y_r << '\n';
-
-
+	return 0;
 }
